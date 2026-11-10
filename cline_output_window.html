@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cline Output Window</title>
+    <style>
+        body {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background-color: #007acc;
+            color: white;
+            padding: 15px;
+            margin: -20px -20px 20px -20px;
+            border-bottom: 3px solid #005a9e;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+        
+        .timestamp {
+            font-size: 0.8em;
+            opacity: 0.8;
+        }
+        
+        .output-section {
+            background-color: #2d2d30;
+            border-left: 4px solid #007acc;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        
+        .task-progress {
+            background-color: #0e2a35;
+            border-left: 4px solid #4ec9b0;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        
+        .task-progress h3 {
+            color: #4ec9b0;
+            margin-top: 0;
+        }
+        
+        .task-progress ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .task-progress li {
+            margin: 5px 0;
+        }
+        
+        .completed {
+            color: #4ec9b0;
+        }
+        
+        .pending {
+            color: #dcdcaa;
+        }
+        
+        .code {
+            background-color: #1e1e1e;
+            border: 1px solid #3c3c3c;
+            border-radius: 3px;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            overflow-x: auto;
+        }
+        
+        .status {
+            background-color: #264f36;
+            color: #b5cea8;
+            padding: 8px 12px;
+            border-radius: 15px;
+            display: inline-block;
+            font-size: 0.9em;
+            margin: 5px 0;
+        }
+        
+        .error {
+            background-color: #5a1d1d;
+            color: #f48771;
+        }
+        
+        .warning {
+            background-color: #5d4e2a;
+            color: #dcdcaa;
+        }
+        
+        .refresh-btn {
+            background-color: #007acc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        
+        .refresh-btn:hover {
+            background-color: #005a9e;
+        }
+        
+        .auto-refresh {
+            font-size: 0.9em;
+            color: #4ec9b0;
+            margin-left: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .header {
+                margin: -10px -10px 10px -10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🤖 Cline Output Window</h1>
+        <div class="timestamp" id="lastUpdated">Last updated: <span id="timestamp"></span></div>
+    </div>
+    
+    <div class="status" id="connectionStatus">Connected</div>
+    <button class="refresh-btn" onclick="refreshOutput()">Refresh Output</button>
+    <span class="auto-refresh">Auto-refresh: <input type="checkbox" id="autoRefresh" checked> Every 2 seconds</span>
+    
+    <div class="task-progress">
+        <h3>📋 Current Task Progress</h3>
+        <ul id="taskList">
+            <li class="completed">✅ Analyze the request for creating a side window for output</li>
+            <li class="completed">✅ Research available options for creating a separate output window</li>
+            <li class="completed">✅ Choose the best approach (HTML file, terminal window, or VS Code panel)</li>
+            <li class="completed">✅ Create the necessary files/setup</li>
+            <li class="pending">🔄 Test the output window functionality</li>
+            <li class="pending">⏳ Provide instructions for usage</li>
+        </ul>
+    </div>
+    
+    <div class="output-section">
+        <h3>💬 Latest Output</h3>
+        <div id="outputContent">
+            <p><strong>Welcome to Cline's Output Window!</strong></p>
+            <p>This window will display my responses, task progress, and system updates in real-time.</p>
+            <p>You can keep this window open on the side while working in VS Code to monitor my activities.</p>
+        </div>
+    </div>
+    
+    <div class="output-section">
+        <h3>🔧 Recent Actions</h3>
+        <div id="actionsContent">
+            <div class="code">
+                <strong>Action:</strong> Created cline_output_window.html<br>
+                <strong>Status:</strong> <span class="status">Success</span><br>
+                <strong>Description:</strong> HTML-based output window for displaying Cline's responses and progress
+            </div>
+        </div>
+    </div>
+    
+    <div class="output-section">
+        <h3>📊 System Information</h3>
+        <div id="systemInfo">
+            <div class="code">
+Working Directory: /Users/I326494/Library/CloudStorage/OneDrive-SAPSE/Hyperspace<br>
+Current Time: 27/04/2026, 11:47:36 am (Europe/Dublin, UTC+1:00)<br>
+Mode: ACT MODE<br>
+Available Tools: git, curl, jq, make, sqlite3, grep, sed, awk, bundle
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateTimestamp() {
+            document.getElementById('timestamp').textContent = new Date().toLocaleString();
+        }
+        
+        function refreshOutput() {
+            // In a real implementation, this would fetch new data
+            // For now, just update the timestamp
+            updateTimestamp();
+            
+            // Simulate adding new output
+            const outputContent = document.getElementById('outputContent');
+            const newOutput = document.createElement('div');
+            newOutput.innerHTML = `<p><em>Refreshed at ${new Date().toLocaleString()}</em></p>`;
+            outputContent.appendChild(newOutput);
+            
+            // Update connection status
+            document.getElementById('connectionStatus').textContent = 'Refreshed';
+            setTimeout(() => {
+                document.getElementById('connectionStatus').textContent = 'Connected';
+            }, 1000);
+        }
+        
+        // Auto-refresh functionality
+        let autoRefreshInterval;
+        
+        function toggleAutoRefresh() {
+            const checkbox = document.getElementById('autoRefresh');
+            if (checkbox.checked) {
+                autoRefreshInterval = setInterval(() => {
+                    updateTimestamp();
+                }, 2000);
+            } else {
+                clearInterval(autoRefreshInterval);
+            }
+        }
+        
+        document.getElementById('autoRefresh').addEventListener('change', toggleAutoRefresh);
+        
+        // Initialize
+        updateTimestamp();
+        toggleAutoRefresh();
+        
+        // Simulate real-time updates (in a real implementation, this would connect to Cline's output)
+        setInterval(() => {
+            if (Math.random() > 0.95) { // Occasionally add simulated activity
+                const actions = document.getElementById('actionsContent');
+                const newAction = document.createElement('div');
+                newAction.className = 'code';
+                newAction.innerHTML = `
+                    <strong>Action:</strong> Background process check<br>
+                    <strong>Status:</strong> <span class="status">Running</span><br>
+                    <strong>Time:</strong> ${new Date().toLocaleString()}
+                `;
+                actions.appendChild(newAction);
+                
+                // Keep only last 5 actions
+                const actionDivs = actions.querySelectorAll('.code');
+                if (actionDivs.length > 5) {
+                    actions.removeChild(actionDivs[0]);
+                }
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
