@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Golf Basics & Stepaside Courses</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-dark:  #1a3a2a;
+    --green:       #2d6a4f;
+    --green-mid:   #40916c;
+    --green-light: #d8f3dc;
+    --gold:        #c9a84c;
+    --gold-light:  #fdf6e3;
+    --text:        #1d2d1e;
+    --muted:       #556b5a;
+    --border:      #c8e6c9;
+    --light:       #f4faf5;
+    --white:       #ffffff;
+  }
+
+  body {
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: #fff;
+    line-height: 1.6;
+  }
+
+  /* ── HERO ─────────────────────────────────────────── */
+  .hero {
+    background: var(--green-dark);
+    color: #fff;
+    padding: 56px 60px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 80% at 90% 50%, rgba(64,145,108,0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #a8d5b5;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 32px; height: 2px;
+    background: var(--gold);
+  }
+  .hero h1 {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero-sub {
+    font-size: 15px;
+    color: #a8d5b5;
+    max-width: 560px;
+    line-height: 1.7;
+  }
+  .hero-accent {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--green-mid) 100%);
+  }
+
+  /* ── LAYOUT ───────────────────────────────────────── */
+  .container {
+    max-width: 1060px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+  section { padding: 52px 0; }
+  section + section { border-top: 1px solid var(--border); }
+
+  .section-eyebrow {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green-mid);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .section-sub {
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 640px;
+    margin-bottom: 36px;
+    line-height: 1.7;
+  }
+
+  /* ── BASICS GRID ──────────────────────────────────── */
+  .basics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .basic-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .basic-card:hover { box-shadow: 0 4px 18px rgba(30,80,50,0.1); }
+  .basic-header {
+    background: var(--green);
+    color: #fff;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .basic-icon { font-size: 20px; }
+  .basic-title { font-size: 13.5px; font-weight: 600; }
+  .basic-body {
+    padding: 14px 16px;
+    background: var(--light);
+  }
+  .basic-body p {
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .basic-body ul {
+    list-style: none;
+    margin-top: 8px;
+  }
+  .basic-body ul li {
+    font-size: 12.5px;
+    color: var(--muted);
+    padding: 3px 0 3px 14px;
+    position: relative;
+  }
+  .basic-body ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--green-mid);
+    font-size: 10px;
+    top: 4px;
+  }
+
+  /* ── SCORING ──────────────────────────────────────── */
+  .scoring-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .score-card {
+    flex: 1;
+    min-width: 140px;
+    border-radius: 10px;
+    padding: 18px 16px;
+    text-align: center;
+    border: 1px solid var(--border);
+  }
+  .score-name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .score-rel {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+  .score-desc { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+
+  /* ── TIPS ─────────────────────────────────────────── */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .tip-row {
+    display: flex;
+    gap: 14px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    align-items: flex-start;
+    background: var(--light);
+  }
+  .tip-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--green);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .tip-title { font-size: 13px; font-weight: 600; color: var(--green-dark); margin-bottom: 3px; }
+  .tip-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* ── COURSES ──────────────────────────────────────── */
+  .courses-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+  .course-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .course-card:hover { box-shadow: 0 6px 24px rgba(30,80,50,0.12); }
+  .course-top {
+    background: var(--green-dark);
+    color: #fff;
+    padding: 18px 20px 14px;
+    position: relative;
+  }
+  .course-badge {
+    position: absolute;
+    top: 14px; right: 14px;
+    background: var(--gold);
+    color: var(--green-dark);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .course-name {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .course-location {
+    font-size: 12px;
+    color: #a8d5b5;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .course-body { padding: 16px 20px; background: #fff; }
+  .course-desc {
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+  .course-meta {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .meta-pill {
+    background: var(--green-light);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-size: 11.5px;
+    color: var(--green);
+    font-weight: 500;
+  }
+
+  /* ── NOTE BOX ─────────────────────────────────────── */
+  .note-box {
+    background: var(--gold-light);
+    border: 1px solid #e8d08a;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 12.5px;
+    color: var(--text);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-top: 28px;
+  }
+
+  /* ── FOOTER ───────────────────────────────────────── */
+  .footer {
+    background: var(--green-dark);
+    color: #a8d5b5;
+    padding: 24px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+  }
+  .footer strong { color: #fff; }
+
+  @media (max-width: 820px) {
+    .hero { padding: 36px 24px 32px; }
+    .hero h1 { font-size: 28px; }
+    .container { padding: 0 20px; }
+    .basics-grid, .courses-grid, .tips-grid { grid-template-columns: 1fr; }
+    .scoring-row { flex-direction: column; }
+    .footer { flex-direction: column; gap: 8px; text-align: center; padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">Beginner's Guide</div>
+    <h1>Golf Basics &<br><span>Stepaside Courses</span></h1>
+    <p class="hero-sub">
+      Everything you need to know to get started with golf — the rules, the equipment,
+      how scoring works — plus the best courses to play near Stepaside, Dublin.
+    </p>
+  </div>
+  <div class="hero-accent"></div>
+</div>
+
+<!-- BASICS -->
+<section>
+  <div class="container">
+    <div class="section-eyebrow">The Fundamentals</div>
+    <div class="section-title">Golf Basics</div>
+    <p class="section-sub">Golf is a game where players use clubs to hit a ball into a series of holes in as few strokes as possible. Here's what every beginner needs to know.</p>
+    <div class="basics-grid">
+
+      <div class="basic-card">
+        <div class="basic-header">
+          <span class="basic-icon">🏌️</span>
+          <span class="basic-title">The Object of the Game</span>
+        </div>
+        <div class="basic-body">
+          <p>Complete each hole by getting the ball from the tee into the hole (cup) using as few strokes as possible. A standard round is 18 holes.</p>
+          <ul>
+            <li>Each hole has a designated Par (target score)</li>
+            <li>Lowest total score wins</li>
+            <li>Play alone or in groups of 2–4</li>
+            <li>9-hole rounds are great for beginners</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="basic-card">
+        <div class="basic-header">
+          <span class="basic-icon">🏑</span>
+          <span class="basic-title">The Clubs</span>
+        </div>
+        <div class="basic-body">
+          <p>You can carry up to 14 clubs. Each type is designed for a different shot distance or situation.</p>
+          <ul>
+            <li><strong>Driver</strong> — longest distance, used off the tee</li>
+            <li><strong>Irons (3–9)</strong> — mid-range approach shots</li>
+            <li><strong>Wedges</strong> — short game, bunkers, chipping</li>
+            <li><strong>Putter</strong> — used on the green to roll into the hole</li>
+            <li><strong>Hybrids</strong> — easier alternatives to long irons</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="basic-card">
+        <div class="basic-header">
+          <span class="basic-icon">🗺️</span>
+          <span class="basic-title">The Course Layout</span>
+        </div>
+        <div class="basic-body">
+          <p>Each hole is made up of distinct zones you must navigate from start to finish.</p>
+          <ul>
+            <li><strong>Tee box</strong> — where you start each hole</li>
+            <li><strong>Fairway</strong> — mown grass leading to the green</li>
+            <li><strong>Rough</strong> — longer grass either side of the fairway</li>
+            <li><strong>Green</strong> — short grass surrounding the hole/flag</li>
+            <li><strong>Hazards</strong> — bunkers (sand) and water obstacles</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="basic-card">
+        <div class="basic-header">
+          <span class="basic-icon">📏</span>
+          <span class="basic-title">Key Rules</span>
+        </div>
+        <div class="basic-body">
+          <p>Golf has a formal rulebook but these basics cover most situations for new players.</p>
+          <ul>
+            <li>Play the ball as it lies — don't move it</li>
+            <li>Out of bounds (white stakes) = 1 stroke penalty + re-hit</li>
+            <li>Lost ball = 1 stroke penalty + re-hit from original spot</li>
+            <li>In a bunker, don't touch the sand before your swing</li>
+            <li>On the green, don't putt while another player's ball is in the way</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="basic-card">
+        <div class="basic-header">
+          <span class="basic-icon">🤝</span>
+          <span class="basic-title">Etiquette</span>
+        </div>
+        <div class="basic-body">
+          <p>Golf has a strong culture of etiquette — following these unwritten rules is just as important as knowing the rules.</p>
+          <ul>
+            <li>Stay quiet when others are taking their shot</li>
+            <li>Keep pace with the group ahead — don't slow down play</li>
+            <li>Repair divots on the fairway and pitch marks on the green</li>
+            <li>Rake bunkers after playing from them</li>
+            <li>Mobile phones on silent on the course</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="basic-card">
+        <div class="basic-header">
+          <span class="basic-icon">🎯</span>
+          <span class="basic-title">Handicap System</span>
+        </div>
+        <div class="basic-body">
+          <p>The handicap system levels the playing field so golfers of different abilities can compete fairly.</p>
+          <ul>
+            <li>Beginners start with a high handicap (e.g. 28 for men, 36 for ladies)</li>
+            <li>Your handicap is subtracted from your gross score</li>
+            <li>As you improve, your handicap goes down</li>
+            <li>World Handicap System (WHS) is used globally</li>
+            <li>Get an official handicap by joining a club</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SCORING -->
+<section style="background:var(--light);">
+  <div class="container">
+    <div class="section-eyebrow">Scoring</div>
+    <div class="section-title">How Scoring Works</div>
+    <p class="section-sub">Each hole has a Par — the expected number of strokes for a scratch golfer. Your score relative to Par tells you how well you played.</p>
+    <div class="scoring-row">
+      <div class="score-card" style="background:#fdecea; border-color:#f5c6cb;">
+        <div class="score-name" style="color:#c0392b;">Double Bogey</div>
+        <div class="score-rel" style="color:#c0392b;">+2</div>
+        <div class="score-desc">2 over par on a hole — common for beginners</div>
+      </div>
+      <div class="score-card" style="background:#fff3e0; border-color:#ffe0b2;">
+        <div class="score-name" style="color:#e67e22;">Bogey</div>
+        <div class="score-rel" style="color:#e67e22;">+1</div>
+        <div class="score-desc">1 over par — a solid score for most amateurs</div>
+      </div>
+      <div class="score-card" style="background:#e8f5e9; border-color:#c8e6c9;">
+        <div class="score-name" style="color:#2d6a4f;">Par</div>
+        <div class="score-rel" style="color:#2d6a4f;">E</div>
+        <div class="score-desc">On target — the expected score for the hole</div>
+      </div>
+      <div class="score-card" style="background:#d8f3dc; border-color:#95d5b2;">
+        <div class="score-name" style="color:#1a5c38;">Birdie</div>
+        <div class="score-rel" style="color:#1a5c38;">−1</div>
+        <div class="score-desc">1 under par — a great result for any golfer</div>
+      </div>
+      <div class="score-card" style="background:#fdf6e3; border-color:#e8d08a;">
+        <div class="score-name" style="color:#b8860b;">Eagle</div>
+        <div class="score-rel" style="color:#b8860b;">−2</div>
+        <div class="score-desc">2 under par — exceptional play on a hole</div>
+      </div>
+      <div class="score-card" style="background:#1a3a2a; border-color:#2d6a4f;">
+        <div class="score-name" style="color:var(--gold);">Hole in One</div>
+        <div class="score-rel" style="color:var(--gold);">⛳</div>
+        <div class="score-desc" style="color:#a8d5b5;">Ball in the hole from the tee — every golfer's dream</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIPS -->
+<section>
+  <div class="container">
+    <div class="section-eyebrow">Getting Started</div>
+    <div class="section-title">Tips for Beginners</div>
+    <p class="section-sub">Golf has a steep learning curve but these tips will help you enjoy the game from day one.</p>
+    <div class="tips-grid">
+      <div class="tip-row">
+        <div class="tip-num">1</div>
+        <div>
+          <div class="tip-title">Take a few lessons first</div>
+          <div class="tip-desc">Even 2–3 lessons with a PGA pro will set you up with a solid grip and stance, saving months of bad habits.</div>
+        </div>
+      </div>
+      <div class="tip-row">
+        <div class="tip-num">2</div>
+        <div>
+          <div class="tip-title">Start with a half set of clubs</div>
+          <div class="tip-desc">You don't need 14 clubs to start. A driver, a 5-iron, a 7-iron, a wedge, and a putter is plenty for beginners.</div>
+        </div>
+      </div>
+      <div class="tip-row">
+        <div class="tip-num">3</div>
+        <div>
+          <div class="tip-title">Practice at a driving range first</div>
+          <div class="tip-desc">Get comfortable hitting the ball consistently before going on a full course. Most clubs near Stepaside have practice facilities.</div>
+        </div>
+      </div>
+      <div class="tip-row">
+        <div class="tip-num">4</div>
+        <div>
+          <div class="tip-title">Don't keep score early on</div>
+          <div class="tip-desc">Focus on enjoying the round and learning the course. Worrying about your score before you're ready adds unnecessary pressure.</div>
+        </div>
+      </div>
+      <div class="tip-row">
+        <div class="tip-num">5</div>
+        <div>
+          <div class="tip-title">Play ready golf</div>
+          <div class="tip-desc">Whoever is ready plays next (rather than strictly farthest from the hole). This keeps pace of play up and is much friendlier for beginners.</div>
+        </div>
+      </div>
+      <div class="tip-row">
+        <div class="tip-num">6</div>
+        <div>
+          <div class="tip-title">Join a club for your handicap</div>
+          <div class="tip-desc">An official handicap makes the game more fun and opens up competitions and visitor rounds. Most clubs welcome beginners warmly.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section style="background:var(--light);">
+  <div class="container">
+    <div class="section-eyebrow">Local Courses</div>
+    <div class="section-title">Popular Golf Courses near Stepaside</div>
+    <p class="section-sub">Stepaside sits in the foothills of the Dublin Mountains in Dún Laoghaire–Rathdown, with several excellent courses within a short drive.</p>
+    <div class="courses-grid">
+
+      <div class="course-card">
+        <div class="course-top">
+          <div class="course-badge">Closest</div>
+          <div class="course-name">Stepaside Golf Centre</div>
+          <div class="course-location">📍 Stepaside, Dublin 18</div>
+        </div>
+        <div class="course-body">
+          <p class="course-desc">A par-3 and academy course right in the heart of Stepaside — the most accessible option for beginners and those looking for a quick round. Also has a driving range and coaching.</p>
+          <div class="course-meta">
+            <span class="meta-pill">Par 3 Course</span>
+            <span class="meta-pill">Driving Range</span>
+            <span class="meta-pill">Beginner Friendly</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-top">
+          <div class="course-badge">Nearby</div>
+          <div class="course-name">Carrickmines Golf Club</div>
+          <div class="course-location">📍 Carrickmines, Dublin 18</div>
+        </div>
+        <div class="course-body">
+          <p class="course-desc">One of Dublin's most picturesque parkland courses, nestled in mature woodland just minutes from Stepaside. Known for its scenic layout and welcoming atmosphere for visiting golfers.</p>
+          <div class="course-meta">
+            <span class="meta-pill">18 Holes</span>
+            <span class="meta-pill">Parkland</span>
+            <span class="meta-pill">Visitor Friendly</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-top">
+          <div class="course-badge">5 min</div>
+          <div class="course-name">Leopardstown Golf Centre</div>
+          <div class="course-location">📍 Leopardstown, Dublin 18</div>
+        </div>
+        <div class="course-body">
+          <p class="course-desc">A popular pay-and-play facility with a 9-hole parkland course and one of the best driving ranges in South Dublin. Ideal for beginners and those working on their game.</p>
+          <div class="course-meta">
+            <span class="meta-pill">9 Holes</span>
+            <span class="meta-pill">Pay & Play</span>
+            <span class="meta-pill">Driving Range</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-top">
+          <div class="course-badge">10 min</div>
+          <div class="course-name">Stackstown Golf Club</div>
+          <div class="course-location">📍 Rathfarnham, Dublin 16</div>
+        </div>
+        <div class="course-body">
+          <p class="course-desc">A challenging 18-hole parkland course set high in the Dublin Mountains with stunning views over the city. Known for its tight fairways and excellent greens — a favourite among local members.</p>
+          <div class="course-meta">
+            <span class="meta-pill">18 Holes</span>
+            <span class="meta-pill">Mountain Views</span>
+            <span class="meta-pill">Members & Visitors</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-top">
+          <div class="course-badge">10 min</div>
+          <div class="course-name">Castle Golf Club</div>
+          <div class="course-location">📍 Rathfarnham, Dublin 14</div>
+        </div>
+        <div class="course-body">
+          <p class="course-desc">Founded in 1913, Castle Golf Club is a classic parkland course designed by Harry Colt. One of Dublin's most respected clubs, it offers a traditional golf experience with well-maintained fairways.</p>
+          <div class="course-meta">
+            <span class="meta-pill">18 Holes</span>
+            <span class="meta-pill">Parkland</span>
+            <span class="meta-pill">Est. 1913</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-top">
+          <div class="course-badge">15 min</div>
+          <div class="course-name">Foxrock Golf Club</div>
+          <div class="course-location">📍 Foxrock, Dublin 18</div>
+        </div>
+        <div class="course-body">
+          <p class="course-desc">A well-regarded 9-hole course in the leafy suburb of Foxrock. Compact and walkable, it's a great option for a shorter round or when time is limited. Active and welcoming membership.</p>
+          <div class="course-meta">
+            <span class="meta-pill">9 Holes</span>
+            <span class="meta-pill">Parkland</span>
+            <span class="meta-pill">Walkable</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="note-box">
+      <span>⛳</span>
+      <span><strong>Tip:</strong> If you're brand new to golf, start at Stepaside Golf Centre or Leopardstown Golf Centre — both are pay-and-play with no membership required and have facilities to help beginners get started. Once you're comfortable, Carrickmines and Stackstown offer a fantastic full 18-hole experience.</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+  <span><strong>Golf Basics & Stepaside Courses</strong> &nbsp;·&nbsp; Beginner's Guide</span>
+  <span>Stepaside, Dublin 18 &nbsp;·&nbsp; November 2026</span>
+</div>
+
+</body>
+</html>
