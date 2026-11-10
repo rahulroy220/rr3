@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAP IBP — Product Overview</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:   #002a45;
+    --blue:   #0070f2;
+    --teal:   #00729e;
+    --green:  #107e3e;
+    --orange: #e76500;
+    --purple: #6a1c96;
+    --text:   #1d2d3e;
+    --muted:  #556b82;
+    --light:  #f5f7fa;
+    --border: #d1dfe8;
+    --lblue:  #a8cce8;
+    --sky:    #e8f2ff;
+  }
+
+  body {
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: #fff;
+    line-height: 1.6;
+  }
+
+  a { color: var(--blue); text-decoration: none; }
+
+  /* ── HERO ─────────────────────────────────────────── */
+  .hero {
+    background: var(--navy);
+    color: #fff;
+    padding: 56px 60px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    right: -80px; top: -80px;
+    width: 480px; height: 480px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,112,242,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--lblue);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 32px; height: 2px;
+    background: var(--blue);
+  }
+  .hero h1 {
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    max-width: 700px;
+  }
+  .hero h1 span { color: #60a5fa; }
+  .hero-sub {
+    font-size: 16px;
+    color: var(--lblue);
+    max-width: 600px;
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .stat { text-align: left; }
+  .stat-num {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 11px;
+    color: var(--lblue);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .hero-accent {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--blue) 0%, var(--teal) 100%);
+  }
+
+  /* ── LAYOUT ───────────────────────────────────────── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  section { padding: 52px 0; }
+  section + section { border-top: 1px solid var(--border); }
+
+  .section-eyebrow {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .section-sub {
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 620px;
+    margin-bottom: 36px;
+    line-height: 1.7;
+  }
+
+  /* ── WHAT IS IBP ──────────────────────────────────── */
+  .what-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+  .what-text p {
+    color: var(--muted);
+    margin-bottom: 14px;
+    line-height: 1.75;
+  }
+  .what-text p strong { color: var(--text); }
+  .what-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+  }
+  .pill {
+    background: var(--sky);
+    border: 1px solid #b8d4f8;
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 12px;
+    color: var(--navy);
+    font-weight: 500;
+  }
+  .what-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .highlight-row {
+    background: var(--light);
+    border-left: 3px solid var(--blue);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 16px;
+  }
+  .highlight-row.teal  { border-color: var(--teal); }
+  .highlight-row.green { border-color: var(--green); }
+  .highlight-row.orange { border-color: var(--orange); }
+  .highlight-title {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--navy);
+    margin-bottom: 3px;
+  }
+  .highlight-desc { font-size: 12.5px; color: var(--muted); }
+
+  /* ── MODULES ──────────────────────────────────────── */
+  .modules-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .module-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .module-card:hover { box-shadow: 0 4px 20px rgba(0,42,69,0.1); }
+  .module-header {
+    padding: 16px 18px 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .module-icon {
+    width: 38px; height: 38px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .module-name {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 2px;
+  }
+  .module-short { font-size: 11.5px; color: var(--muted); }
+  .module-body {
+    padding: 0 18px 16px;
+    background: var(--light);
+  }
+  .module-list {
+    list-style: none;
+    margin-top: 10px;
+  }
+  .module-list li {
+    font-size: 12px;
+    color: var(--muted);
+    padding: 4px 0;
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .module-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--blue);
+    font-size: 10px;
+    top: 5px;
+  }
+
+  /* ── ARCHITECTURE ─────────────────────────────────── */
+  .arch-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  .arch-card {
+    text-align: center;
+    padding: 24px 16px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--light);
+  }
+  .arch-icon { font-size: 28px; margin-bottom: 10px; }
+  .arch-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .arch-desc { font-size: 11.5px; color: var(--muted); line-height: 1.6; }
+
+  /* ── KEY FEATURES ─────────────────────────────────── */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .feature-row {
+    display: flex;
+    gap: 14px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    align-items: flex-start;
+  }
+  .feature-icon-wrap {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: var(--sky);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .feature-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 3px;
+  }
+  .feature-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* ── INTEGRATION ──────────────────────────────────── */
+  .integration-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .int-card {
+    flex: 1;
+    min-width: 180px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .int-icon {
+    font-size: 24px;
+    width: 40px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .int-name { font-size: 13px; font-weight: 600; color: var(--navy); }
+  .int-desc { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+
+  /* ── BENEFITS ─────────────────────────────────────── */
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .benefit-card {
+    padding: 24px 20px;
+    border-radius: 10px;
+    background: var(--navy);
+    color: #fff;
+  }
+  .benefit-card.light { background: var(--light); color: var(--text); }
+  .benefit-num {
+    font-size: 32px;
+    font-weight: 700;
+    color: #60a5fa;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .benefit-card.light .benefit-num { color: var(--blue); }
+  .benefit-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #fff;
+  }
+  .benefit-card.light .benefit-title { color: var(--navy); }
+  .benefit-desc { font-size: 12px; color: var(--lblue); line-height: 1.6; }
+  .benefit-card.light .benefit-desc { color: var(--muted); }
+
+  /* ── FOOTER ───────────────────────────────────────── */
+  .footer {
+    background: var(--navy);
+    color: var(--lblue);
+    padding: 28px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+  }
+  .footer strong { color: #fff; }
+
+  /* ── RESPONSIVE ───────────────────────────────────── */
+  @media (max-width: 820px) {
+    .hero { padding: 36px 24px 32px; }
+    .hero h1 { font-size: 28px; }
+    .container { padding: 0 20px; }
+    .what-grid, .features-grid, .benefits-grid { grid-template-columns: 1fr; }
+    .modules-grid, .arch-grid { grid-template-columns: 1fr 1fr; }
+    .footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ─────────────────────────────────────────── -->
+<div class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">SAP Supply Chain Management</div>
+    <h1>SAP Integrated Business<br><span>Planning for Supply Chain</span></h1>
+    <p class="hero-sub">
+      A cloud-based supply chain planning solution that unifies sales and operations planning,
+      demand, supply, inventory, and response planning on a single platform — powered by
+      SAP HANA in-memory technology.
+    </p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">5,000+</div>
+        <div class="stat-label">Customers worldwide</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">90+</div>
+        <div class="stat-label">Countries deployed</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">Real-time</div>
+        <div class="stat-label">HANA in-memory engine</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">Cloud</div>
+        <div class="stat-label">SaaS on SAP BTP</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-accent"></div>
+</div>
+
+<!-- ── WHAT IS IBP ──────────────────────────────────── -->
+<section>
+  <div class="container">
+    <div class="section-eyebrow">Overview</div>
+    <div class="section-title">What is SAP IBP?</div>
+    <div class="what-grid">
+      <div class="what-text">
+        <p>
+          <strong>SAP Integrated Business Planning (IBP)</strong> is SAP's strategic supply chain
+          planning suite, designed to help organisations align supply with demand in real time.
+          It replaces legacy solutions such as SAP APO (Advanced Planner and Optimizer) and
+          SAP SCM, offering a modern cloud-native architecture.
+        </p>
+        <p>
+          IBP runs on <strong>SAP Business Technology Platform (BTP)</strong> with
+          <strong>SAP HANA</strong> as its in-memory database engine, enabling planners to
+          run complex simulations and what-if scenarios across millions of data points
+          in seconds rather than hours.
+        </p>
+        <p>
+          Planning teams interact with IBP through <strong>SAP Fiori web apps</strong> or
+          the <strong>Excel Add-In</strong>, which gives a familiar spreadsheet interface
+          directly connected to live planning data.
+        </p>
+        <div class="what-pills">
+          <span class="pill">Cloud (SaaS)</span>
+          <span class="pill">SAP HANA</span>
+          <span class="pill">Excel Add-In</span>
+          <span class="pill">Fiori UI</span>
+          <span class="pill">AI / ML built-in</span>
+          <span class="pill">SAP BTP</span>
+        </div>
+      </div>
+      <div class="what-highlights">
+        <div class="highlight-row">
+          <div class="highlight-title">Unified Planning Platform</div>
+          <div class="highlight-desc">All planning processes — demand, supply, inventory, S&OP — share one data model, one UI, and one version of the truth.</div>
+        </div>
+        <div class="highlight-row teal">
+          <div class="highlight-title">In-Memory Speed</div>
+          <div class="highlight-desc">SAP HANA processes planning runs, heuristics, and optimisations in real time, replacing overnight batch runs with instant results.</div>
+        </div>
+        <div class="highlight-row green">
+          <div class="highlight-title">Embedded Analytics</div>
+          <div class="highlight-desc">Charts, KPIs, and exception alerts are built directly into planning views — no separate BI tool required for operational planning.</div>
+        </div>
+        <div class="highlight-row orange">
+          <div class="highlight-title">AI-Assisted Planning</div>
+          <div class="highlight-desc">Machine learning demand sensing, statistical forecasting, and AI Insights surfaced inline during the planning process.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MODULES ──────────────────────────────────────── -->
+<section>
+  <div class="container">
+    <div class="section-eyebrow">Capabilities</div>
+    <div class="section-title">Planning Modules</div>
+    <p class="section-sub">IBP is structured as a suite of interconnected planning modules, each addressing a distinct supply chain process while sharing the same master data and key figure model.</p>
+    <div class="modules-grid">
+
+      <div class="module-card">
+        <div class="module-header">
+          <div class="module-icon" style="background:#e8f2ff;">📊</div>
+          <div>
+            <div class="module-name">Sales & Operations Planning</div>
+            <div class="module-short">IBP for S&OP</div>
+          </div>
+        </div>
+        <div class="module-body">
+          <ul class="module-list">
+            <li>Executive S&OP review process</li>
+            <li>Volume-level consensus planning</li>
+            <li>Financial integration & revenue view</li>
+            <li>Collaboration across business units</li>
+            <li>What-if scenario comparison</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header">
+          <div class="module-icon" style="background:#e6f4ea;">📈</div>
+          <div>
+            <div class="module-name">Demand Planning</div>
+            <div class="module-short">IBP for Demand</div>
+          </div>
+        </div>
+        <div class="module-body">
+          <ul class="module-list">
+            <li>Statistical baseline forecasting</li>
+            <li>Causal factor modelling</li>
+            <li>Demand sensing (short-horizon ML)</li>
+            <li>Collaborative forecast adjustments</li>
+            <li>Forecast accuracy tracking</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header">
+          <div class="module-icon" style="background:#fff3e0;">🏭</div>
+          <div>
+            <div class="module-name">Supply Planning</div>
+            <div class="module-short">IBP for Supply</div>
+          </div>
+        </div>
+        <div class="module-body">
+          <ul class="module-list">
+            <li>Constrained supply planning</li>
+            <li>Multi-level BOM explosion</li>
+            <li>Capacity planning & scheduling</li>
+            <li>Replenishment planning</li>
+            <li>Supply heuristics & optimisation</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header">
+          <div class="module-icon" style="background:#f3e8ff;">📦</div>
+          <div>
+            <div class="module-name">Inventory Optimisation</div>
+            <div class="module-short">IBP for Inventory</div>
+          </div>
+        </div>
+        <div class="module-body">
+          <ul class="module-list">
+            <li>Target stock level calculation</li>
+            <li>Safety stock optimisation</li>
+            <li>Multi-echelon inventory</li>
+            <li>Service level vs. cost trade-offs</li>
+            <li>Slow-mover & obsolescence alerts</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header">
+          <div class="module-icon" style="background:#e8f5fd;">⚡</div>
+          <div>
+            <div class="module-name">Response & Supply</div>
+            <div class="module-short">IBP for Response</div>
+          </div>
+        </div>
+        <div class="module-body">
+          <ul class="module-list">
+            <li>Short-term order fulfilment</li>
+            <li>Allocation management</li>
+            <li>Order promising & ATP</li>
+            <li>Shortage resolution workflows</li>
+            <li>Near-real-time supply balancing</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header">
+          <div class="module-icon" style="background:#fde8e8;">🗺️</div>
+          <div>
+            <div class="module-name">Supply Chain Control Tower</div>
+            <div class="module-short">Visibility & Alerts</div>
+          </div>
+        </div>
+        <div class="module-body">
+          <ul class="module-list">
+            <li>End-to-end supply chain visibility</li>
+            <li>Exception-based alert management</li>
+            <li>Guided resolution workflows</li>
+            <li>KPI dashboards across the network</li>
+            <li>Integration with external data sources</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── ARCHITECTURE ─────────────────────────────────── -->
+<section style="background:var(--light);">
+  <div class="container">
+    <div class="section-eyebrow">Technology</div>
+    <div class="section-title">Architecture & Platform</div>
+    <p class="section-sub">IBP is built on SAP's enterprise cloud platform, combining in-memory processing, a unified data model, and multiple user interfaces.</p>
+    <div class="arch-grid">
+      <div class="arch-card">
+        <div class="arch-icon">☁️</div>
+        <div class="arch-title">SAP BTP</div>
+        <div class="arch-desc">Runs on SAP Business Technology Platform — multi-tenant SaaS with data centres in AWS, Azure, and GCP regions worldwide.</div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-icon">⚡</div>
+        <div class="arch-title">SAP HANA</div>
+        <div class="arch-desc">In-memory columnar database powers real-time planning runs, heuristics, and what-if simulations on large datasets.</div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-icon">📋</div>
+        <div class="arch-title">Excel Add-In</div>
+        <div class="arch-desc">Native Excel integration lets planners work in a familiar grid while reading and writing live IBP data via OData.</div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-icon">🖥️</div>
+        <div class="arch-title">SAP Fiori</div>
+        <div class="arch-desc">Web-based UI built on SAPUI5 — responsive Fiori apps for planning, administration, master data, and monitoring.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── KEY FEATURES ─────────────────────────────────── -->
+<section>
+  <div class="container">
+    <div class="section-eyebrow">Features</div>
+    <div class="section-title">Key Features</div>
+    <p class="section-sub">Beyond the planning modules, IBP delivers a set of cross-cutting capabilities that underpin every planning process.</p>
+    <div class="features-grid">
+      <div class="feature-row">
+        <div class="feature-icon-wrap">🗂️</div>
+        <div>
+          <div class="feature-name">Master Data Management</div>
+          <div class="feature-desc">Manage Products, Locations, Customers, and combination objects (Location-Product, Customer-Source) through dedicated Fiori apps. Changes cascade automatically to dependent planning records.</div>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon-wrap">📐</div>
+        <div>
+          <div class="feature-name">Planning Areas & Key Figures</div>
+          <div class="feature-desc">Configurable planning areas define the data model — key figures, time profiles, versioning, and planning levels — without custom development.</div>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon-wrap">🔄</div>
+        <div>
+          <div class="feature-name">Scenarios & Versions</div>
+          <div class="feature-desc">Create unlimited what-if scenarios and compare them side-by-side. Promote approved scenarios to the baseline plan with full audit trail.</div>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon-wrap">🤖</div>
+        <div>
+          <div class="feature-name">AI / Machine Learning</div>
+          <div class="feature-desc">Built-in ML models for demand forecasting, demand sensing, and anomaly detection. AI Insights generate natural-language explanations of planning data patterns.</div>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon-wrap">🔔</div>
+        <div>
+          <div class="feature-name">Alert Framework</div>
+          <div class="feature-desc">Define threshold-based or condition-based alerts. Planners receive exception-driven notifications and can act directly from the alert, reducing time-to-resolution.</div>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon-wrap">📡</div>
+        <div>
+          <div class="feature-name">REST & OData APIs</div>
+          <div class="feature-desc">Open APIs (including Telemetry, Master Data, and Planning Data APIs) allow integration with third-party tools, custom dashboards, and automated pipelines.</div>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon-wrap">🛡️</div>
+        <div>
+          <div class="feature-name">Role-Based Access Control</div>
+          <div class="feature-desc">Fine-grained authorisation using SAP BTP identity management. Planners see only the planning areas, data slices, and apps relevant to their role.</div>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon-wrap">📊</div>
+        <div>
+          <div class="feature-name">Embedded Analytics & Telemetry</div>
+          <div class="feature-desc">Real-time charts and KPIs are embedded in planning views. System telemetry data tracks user activity, workbook performance, and resource consumption.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── INTEGRATION ──────────────────────────────────── -->
+<section style="background:var(--light);">
+  <div class="container">
+    <div class="section-eyebrow">Connectivity</div>
+    <div class="section-title">Integration Landscape</div>
+    <p class="section-sub">IBP sits at the centre of the supply chain technology stack, connecting upstream ERP and downstream execution systems.</p>
+    <div class="integration-row">
+      <div class="int-card">
+        <div class="int-icon">🏢</div>
+        <div>
+          <div class="int-name">SAP S/4HANA</div>
+          <div class="int-desc">Bidirectional integration for orders, stock, and master data via SAP Integration Suite (CIG).</div>
+        </div>
+      </div>
+      <div class="int-card">
+        <div class="int-icon">🏛️</div>
+        <div>
+          <div class="int-name">SAP ECC</div>
+          <div class="int-desc">Legacy ERP integration via SAP CIG adapters — replaces SAP APO Core Interface (CIF).</div>
+        </div>
+      </div>
+      <div class="int-card">
+        <div class="int-icon">🔗</div>
+        <div>
+          <div class="int-name">SAP Integration Suite</div>
+          <div class="int-desc">Pre-built integration flows (iFlows) on BTP for master data, transactional data, and key figure replication.</div>
+        </div>
+      </div>
+      <div class="int-card">
+        <div class="int-icon">📁</div>
+        <div>
+          <div class="int-name">Flat File / CSV</div>
+          <div class="int-desc">Excel-based data loads for master data and key figures — useful for legacy system integrations.</div>
+        </div>
+      </div>
+      <div class="int-card">
+        <div class="int-icon">🌐</div>
+        <div>
+          <div class="int-name">Third-Party Systems</div>
+          <div class="int-desc">OData and REST APIs enable connection to non-SAP WMS, TMS, or external demand signal providers.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BENEFITS ─────────────────────────────────────── -->
+<section>
+  <div class="container">
+    <div class="section-eyebrow">Business Value</div>
+    <div class="section-title">Why Organisations Choose IBP</div>
+    <p class="section-sub">IBP is designed to deliver measurable supply chain performance improvements across service levels, inventory, and planning cycle times.</p>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-num">↑ 15–25%</div>
+        <div class="benefit-title">Forecast Accuracy</div>
+        <div class="benefit-desc">ML-driven demand sensing and statistical models consistently improve baseline accuracy over manual or legacy methods.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-num">↓ 20–30%</div>
+        <div class="benefit-title">Inventory Reduction</div>
+        <div class="benefit-desc">Multi-echelon inventory optimisation sets target stock levels that balance service level against working capital cost.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-num">↓ 80%</div>
+        <div class="benefit-title">Planning Cycle Time</div>
+        <div class="benefit-desc">In-memory processing replaces overnight batch runs — planners can re-run supply plans in minutes and iterate through the day.</div>
+      </div>
+      <div class="benefit-card light">
+        <div class="benefit-num">1 Platform</div>
+        <div class="benefit-title">Single Version of the Truth</div>
+        <div class="benefit-desc">Demand, supply, inventory, and finance teams plan on the same data model, eliminating spreadsheet reconciliation.</div>
+      </div>
+      <div class="benefit-card light">
+        <div class="benefit-num">Real-time</div>
+        <div class="benefit-title">Exception-Driven Planning</div>
+        <div class="benefit-desc">Alerts surface supply-demand imbalances as they occur — planners focus on exceptions rather than reviewing static reports.</div>
+      </div>
+      <div class="benefit-card light">
+        <div class="benefit-num">Cloud</div>
+        <div class="benefit-title">Continuous Innovation</div>
+        <div class="benefit-desc">Quarterly SAP releases deliver new AI features, UI improvements, and API capabilities without customer-managed upgrades.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────── -->
+<div class="footer">
+  <span><strong>SAP Integrated Business Planning for Supply Chain</strong> &nbsp;·&nbsp; Product Overview</span>
+  <span>sap.com/ibp &nbsp;·&nbsp; November 2026</span>
+</div>
+
+</body>
+</html>
